@@ -32,7 +32,7 @@ dependencies {
     compile project(':joke')
     compile project(':jokeactivity')
     compile 'com.android.support:appcompat-v7:22.0.1'
+
     // Added for AdMob
-    // TODO add dependency, layout and class to free flavor
     freeCompile 'com.google.android.gms:play-services:8.1.0'
 }

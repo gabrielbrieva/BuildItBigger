@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import com.udacity.gradle.builditbigger.javajoke.Joke;
 
-public class JokeAsync extends AsyncTask<String, Void, String> {
+public class JokeAsync extends AsyncTask<Void, Void, String> {
 
     private IJokeAsyncListener listener;
 
@@ -14,11 +14,8 @@ public class JokeAsync extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
-        if (params.length == 0)
-            return null;
-
-        return Joke.GetJoke(params[0]);
+    protected String doInBackground(Void... params) {
+        return Joke.GetJoke();
     }
 
     @Override
@@ -29,6 +26,6 @@ public class JokeAsync extends AsyncTask<String, Void, String> {
     }
 
     public interface IJokeAsyncListener {
-        public void onComplete (String result);
+        void onComplete (String result);
     }
 }

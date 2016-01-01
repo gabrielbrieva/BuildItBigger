@@ -10,6 +10,6 @@ public class JokeAsyncTest extends AndroidTestCase {
             public void onComplete(String result) {
                 assertNotNull(result);
             }
-        }).execute("tuxan");
+        }).execute();
     }
 }

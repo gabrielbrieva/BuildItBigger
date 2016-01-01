@@ -4,19 +4,19 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
-import com.udacity.gradle.builditbigger.jokegce.myApi.MyApi;
+import com.udacity.gradle.builditbigger.jokegce.jokeApi.JokeApi;
 
 import java.io.IOException;
 
 public class Joke {
 
-    private static MyApi myApiService = null;
+    private static JokeApi jokeApiService = null;
 
 
-    public static String GetJoke(String name)
+    public static String GetJoke()
     {
-        if(myApiService == null) {  // Only do this once
-            MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
+        if(jokeApiService == null) {  // Only do this once
+            JokeApi.Builder builder = new JokeApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
                     // - 10.0.2.2 is localhost's IP address in Android emulator
@@ -30,11 +30,11 @@ public class Joke {
                     });
             // end options for devappserver
 
-            myApiService = builder.build();
+            jokeApiService = builder.build();
         }
 
         try {
-            return myApiService.sayHi(name).execute().getData();
+            return jokeApiService.tellJoke().execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }
