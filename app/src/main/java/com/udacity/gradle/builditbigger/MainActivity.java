@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import com.udacity.gradle.builditbigger.jokeactivity.JokeActivity;
 
 
@@ -41,7 +43,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view){
-        new JokeAsync(this).execute("tuxan");
+        new JokeAsync(new JokeAsync.IJokeAsyncListener() {
+            @Override
+            public void onComplete(String result) {
+                if (result != null) {
+                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+
+                    Intent myIntent = new Intent(getApplicationContext(), JokeActivity.class);
+                    myIntent.putExtra(JokeActivity.JOKE_TEXT_KEY, result);
+                    startActivity(myIntent);
+                }
+            }
+        }).execute("tuxan");
     }
 
 
