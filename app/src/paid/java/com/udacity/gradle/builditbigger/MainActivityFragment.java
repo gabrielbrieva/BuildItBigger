@@ -18,8 +18,6 @@ import com.udacity.gradle.builditbigger.jokeactivity.JokeActivity;
  */
 public class MainActivityFragment extends Fragment {
 
-    String joke;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,7 +42,7 @@ public class MainActivityFragment extends Fragment {
 
                         if (result != null) {
                             Intent myIntent = new Intent(getActivity(), JokeActivity.class);
-                            myIntent.putExtra(JokeActivity.JOKE_TEXT_KEY, joke);
+                            myIntent.putExtra(JokeActivity.JOKE_TEXT_KEY, result);
                             startActivity(myIntent);
                         }
 
