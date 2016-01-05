@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
+
     defaultConfig {
         applicationId "com.udacity.gradle.builditbigger"
         minSdkVersion 10
@@ -27,11 +28,34 @@ android {
     }
 }
 
+task runAppEngineWrapper (dependsOn: ":jokegce:appengineRun") {
+    evaluationDependsOn ":jokegce"
+
+    project(":jokegce") {
+        appengine {
+            daemon true
+        }
+    }
+}
+
+task stopAppEngineWrapper(dependsOn: ':jokegce:appengineStop'){
+    mustRunAfter ':app:connectedCheck'
+}
+
+task connectedTestWrapper(dependsOn: ':app:connectedCheck') {
+    mustRunAfter ':app:runAppEngineWrapper'
+}
+
+
+task runConnectedTest (dependsOn: [':app:connectedTestWrapper', ':app:runAppEngineWrapper', ':app:stopAppEngineWrapper']) {
+}
+
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':joke')
     compile project(':jokeactivity')
-    compile 'com.android.support:appcompat-v7:22.0.1'
+    compile 'com.android.support:appcompat-v7:22.2.1'
 
     // Added for AdMob
     freeCompile 'com.google.android.gms:play-services:8.1.0'
