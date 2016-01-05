@@ -20,9 +20,7 @@ public class JokeAsync extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        if (listener != null) {
-            listener.onComplete(s);
-        }
+        listener.onComplete(s);
     }
 
     public interface IJokeAsyncListener {
